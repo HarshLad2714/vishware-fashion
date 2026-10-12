@@ -1,0 +1,51 @@
+# Push to main → this workflow publishes the latest site to Netlify.
+# The QR code on the visiting card points at one fixed URL, so customers
+# always land on whatever was last pushed.
+#
+# One-time setup (Netlify → Site configuration → Environment variables / GitHub secrets):
+#   NETLIFY_AUTH_TOKEN   personal access token from https://app.netlify.com/user/applications
+#   NETLIFY_SITE_ID      Site configuration → Site details → Site ID
+#
+# If the GitHub repo is already linked inside Netlify, Netlify's own build
+# (netlify.toml) deploys on push as well. This workflow is the explicit pipeline.
+
+name: Deploy to Netlify
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: netlify-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Publish production
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          if [ -z "$NETLIFY_AUTH_TOKEN" ] || [ -z "$NETLIFY_SITE_ID" ]; then
+            echo "Netlify secrets are not set yet. Add NETLIFY_AUTH_TOKEN and NETLIFY_SITE_ID, then re-run."
+            echo "Until then, link the GitHub repo in the Netlify UI — netlify.toml will build on every push to main."
+            exit 0
+          fi
+          npx --yes netlify-cli deploy --prod --dir=dist --site="$NETLIFY_SITE_ID" --message "Deploy ${GITHUB_SHA}"
