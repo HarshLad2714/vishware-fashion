@@ -1,23 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 export default function Loader() {
+  const { pathname } = useLocation();
   const reduce = useReducedMotion();
   const [visible, setVisible] = useState(true);
+
+  useLayoutEffect(() => {
+    document.getElementById("boot")?.remove();
+  }, []);
 
   useEffect(() => {
     if (reduce) {
       setVisible(false);
       return undefined;
     }
+    setVisible(true);
     const timer = window.setTimeout(() => setVisible(false), 2400);
     return () => window.clearTimeout(timer);
-  }, [reduce]);
+  }, [reduce, pathname]);
 
   return (
     <AnimatePresence>
       {visible ? (
         <motion.div
+          key={pathname}
           className="fixed inset-0 z-[90] flex flex-col items-center justify-center bg-ivory"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -27,6 +35,7 @@ export default function Loader() {
         >
           <svg viewBox="0 0 80 150" className="h-36 w-16 text-gold" fill="none" aria-hidden="true">
             <motion.path
+              key={`${pathname}-needle`}
               d="M40 18 V92"
               stroke="currentColor"
               strokeWidth="1.4"
@@ -48,6 +57,7 @@ export default function Loader() {
             <path d="M40 104 L36 132 L44 132 Z" fill="#D9B48F" />
           </svg>
           <motion.img
+            key={`${pathname}-logo`}
             src="/images/logo/logo.png"
             alt="Vishwear"
             className="mt-8 h-40 w-auto md:h-52"

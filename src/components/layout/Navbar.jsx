@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Heart, Menu, Search, X } from "lucide-react";
+import { Heart, Menu, Search, ShoppingBag, X } from "lucide-react";
 import { useScrollDirection } from "../../hooks/useScrollDirection";
 import { useUi } from "../../context/UiContext";
 
@@ -13,7 +13,7 @@ const links = [
 
 export default function Navbar() {
   const { pathname } = useLocation();
-  const { wishlist, searchOpen, setSearchOpen, menuOpen, setMenuOpen } = useUi();
+  const { wishlist, bagCount, searchOpen, setSearchOpen, menuOpen, setMenuOpen } = useUi();
   const { hidden, scrolled } = useScrollDirection(menuOpen || searchOpen);
   const isHome = pathname === "/";
   const solid = !isHome || scrolled || menuOpen;
@@ -91,6 +91,18 @@ export default function Navbar() {
               <Search size={18} strokeWidth={1.5} />
             </button>
             <Link
+              to="/bag"
+              className="relative grid h-11 w-11 place-items-center text-burgundy"
+              aria-label={`Bag, ${bagCount} pieces`}
+            >
+              <ShoppingBag size={18} strokeWidth={1.5} />
+              {bagCount > 0 ? (
+                <span className="absolute right-1 top-1 grid h-4 min-w-4 place-items-center rounded-full bg-burgundy px-1 text-[9px] text-ivory">
+                  {bagCount}
+                </span>
+              ) : null}
+            </Link>
+            <Link
               to="/wishlist"
               className="relative grid h-11 w-11 place-items-center text-burgundy"
               aria-label={`Wishlist, ${wishlist.length} saved`}
@@ -128,6 +140,9 @@ export default function Navbar() {
                 {link.label}
               </NavLink>
             ))}
+            <NavLink to="/bag" className="font-serif text-5xl text-wine">
+              Bag
+            </NavLink>
             <NavLink to="/wishlist" className="font-serif text-5xl text-wine">
               Wishlist
             </NavLink>

@@ -16,11 +16,12 @@ import NotFound from "./NotFound";
 export default function ProductDetail() {
   const { slug } = useParams();
   const product = getProduct(slug);
-  const { toggleWish, wished, viewProduct, recent } = useUi();
+  const { toggleWish, wished, viewProduct, recent, addToBag, bagQty } = useUi();
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
   const [hint, setHint] = useState("");
   const [copied, setCopied] = useState(false);
+  const [bagNote, setBagNote] = useState("");
 
   useEffect(() => {
     if (!product) return;
@@ -199,7 +200,23 @@ export default function ProductDetail() {
             ) : null}
           </div>
 
-          <div className="mt-4 flex gap-4">
+          <div className="mt-4 flex flex-wrap gap-4">
+            <button
+              type="button"
+              onClick={() => {
+                if (!size) {
+                  setHint("Choose a size first.");
+                  return;
+                }
+                addToBag(product.id, { size, color });
+                setBagNote("Added to bag");
+                window.setTimeout(() => setBagNote(""), 1200);
+              }}
+              className="inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.16em] text-burgundy"
+            >
+              + Add to bag{bagQty(product.id) > 0 ? ` (${bagQty(product.id)})` : ""}
+            </button>
+            {bagNote ? <span className="text-[12px] uppercase tracking-[0.16em] text-charcoal/60">{bagNote}</span> : null}
             <button type="button" onClick={() => toggleWish(product.id)} className="inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.16em] text-burgundy">
               <Heart size={15} fill={saved ? "currentColor" : "none"} /> {saved ? "Saved" : "Save"}
             </button>

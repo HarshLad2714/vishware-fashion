@@ -1,4 +1,5 @@
-import { Heart } from "lucide-react";
+import { useState } from "react";
+import { Heart, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { categoryName } from "../../data/products";
@@ -7,8 +8,10 @@ import { discountPercent, formatPrice } from "../../utils/formatPrice";
 import SmartImage from "../common/SmartImage";
 
 export default function ProductCard({ product }) {
-  const { toggleWish, wished } = useUi();
+  const { toggleWish, wished, addToBag, bagQty } = useUi();
   const saved = wished(product.id);
+  const inBag = bagQty(product.id);
+  const [added, setAdded] = useState(false);
   const off = discountPercent(product.price, product.mrp);
   const second = product.images[1];
 
@@ -43,6 +46,24 @@ export default function ProductCard({ product }) {
           className="absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-full bg-ivory/90 text-burgundy"
         >
           <Heart size={16} fill={saved ? "currentColor" : "none"} />
+        </button>
+        <button
+          type="button"
+          aria-label={`Add ${product.name} to bag`}
+          onClick={() => {
+            addToBag(product.id);
+            setAdded(true);
+            window.setTimeout(() => setAdded(false), 900);
+          }}
+          className="absolute bottom-3 right-3 z-10 grid h-10 w-10 place-items-center rounded-full bg-burgundy text-ivory shadow-soft"
+        >
+          <Plus size={18} strokeWidth={1.75} />
+          {inBag > 0 ? (
+            <span className="absolute -right-1 -top-1 grid h-4 min-w-4 place-items-center rounded-full bg-ivory px-1 text-[9px] text-burgundy">
+              {inBag}
+            </span>
+          ) : null}
+          <span className="sr-only">{added ? "Added" : "Add"}</span>
         </button>
         {product.isNew ? (
           <span className="absolute left-3 top-3 bg-ivory/90 px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-burgundy">

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence, MotionConfig, motion, useReducedMotion, useScroll } from "framer-motion";
 import Lenis from "lenis";
@@ -15,6 +15,7 @@ import ProductDetail from "./pages/ProductDetail";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Wishlist from "./pages/Wishlist";
+import Bag from "./pages/Bag";
 import NotFound from "./pages/NotFound";
 
 function SmoothScroll() {
@@ -60,34 +61,6 @@ function ScrollProgress() {
   );
 }
 
-function Curtain() {
-  const { pathname } = useLocation();
-  const reduce = useReducedMotion();
-  const firstLoad = useRef(true);
-  const [armed, setArmed] = useState(false);
-
-  useEffect(() => {
-    if (firstLoad.current) {
-      firstLoad.current = false;
-      return;
-    }
-    setArmed(true);
-  }, [pathname]);
-
-  if (reduce || !armed) return null;
-  return (
-    <AnimatePresence>
-      <motion.div
-        key={pathname}
-        className="pointer-events-none fixed inset-0 z-[70] origin-top bg-burgundy"
-        initial={{ scaleY: 1 }}
-        animate={{ scaleY: 0 }}
-        transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
-      />
-    </AnimatePresence>
-  );
-}
-
 export default function App() {
   const location = useLocation();
 
@@ -100,7 +73,6 @@ export default function App() {
         <Loader />
         <CustomCursor />
         <ScrollProgress />
-        <Curtain />
         <SmoothScroll />
         <div className="flex min-h-screen flex-col">
           <Navbar />
@@ -122,6 +94,7 @@ export default function App() {
                   <Route path="/about" element={<About />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/wishlist" element={<Wishlist />} />
+                  <Route path="/bag" element={<Bag />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </motion.div>

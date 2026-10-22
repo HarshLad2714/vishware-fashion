@@ -25,6 +25,7 @@ export default function Footer() {
             <li><Link to="/category/sarees" className="hover:text-gold">Sarees</Link></li>
             <li><Link to="/category/lehengas" className="hover:text-gold">Lehengas</Link></li>
             <li><Link to="/category/bridal" className="hover:text-gold">Bridal</Link></li>
+            <li><Link to="/bag" className="hover:text-gold">Bag</Link></li>
             <li><Link to="/wishlist" className="hover:text-gold">Wishlist</Link></li>
           </ul>
         </div>

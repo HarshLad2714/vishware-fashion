@@ -3,7 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#4A111C" />
+    <meta name="theme-color" content="#FFFBF7" />
+    <style>
+      html, body { background: #fffbf7; }
+      #boot {
+        position: fixed;
+        inset: 0;
+        z-index: 80;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fffbf7;
+      }
+      #boot img { height: 10rem; width: auto; }
+    </style>
     <meta
       name="description"
       content="Vishwear — Silhouette tera signature hamara. A luxury fashion atelier for sarees, lehengas, gowns and occasion wear. Enquire on WhatsApp."
@@ -26,6 +39,7 @@
     <title>Vishwear — Silhouette tera signature hamara</title>
   </head>
   <body>
+    <div id="boot" aria-hidden="true"><img src="/images/logo/logo.png" alt="" /></div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

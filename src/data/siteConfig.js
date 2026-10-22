@@ -23,6 +23,9 @@ export const siteConfig = {
   address: "Vishwear Atelier, Surat, Gujarat",
   mapQuery: "Surat, Gujarat",
   hours: "Monday to Saturday, 11:00 – 20:00",
+  // Bag order par user ne dekhay, ane WhatsApp message ni andar pan jaye. Edit kari shakay.
+  companyOrderMessage:
+    "Thank you for choosing Vishwear. This order has reached our atelier. We will confirm every piece, the size and delivery on this WhatsApp chat before it is prepared. Silhouette tera signature hamara.",
 };
 
 export function hasContactNumber() {

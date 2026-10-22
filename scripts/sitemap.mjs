@@ -8,6 +8,7 @@ const paths = [
   "/collection",
   "/about",
   "/contact",
+  "/bag",
   ...categories.map((category) => `/category/${category.slug}`),
   ...products.map((product) => `/product/${product.slug}`),
 ];
