@@ -37,7 +37,8 @@ export default function Bag() {
         .filter((item) => item.product),
     [bag]
   );
-  const total = lines.reduce((sum, line) => sum + line.product.price * line.qty, 0);
+  const total = lines.reduce((sum, line) => sum + (line.product.price == null ? 0 : line.product.price * line.qty), 0);
+  const openPrice = lines.some((line) => line.product.price == null);
 
   function setField(key, value) {
     setError("");
@@ -123,7 +124,7 @@ export default function Bag() {
                     </button>
                   </div>
                 </div>
-                <p className="text-sm">{formatPrice(line.product.price * line.qty)}</p>
+                <p className="text-sm">{line.product.price == null ? "On request" : formatPrice(line.product.price * line.qty)}</p>
               </li>
             ))}
           </ul>
@@ -149,7 +150,10 @@ export default function Bag() {
 
             <div className="mt-6 flex items-end justify-between border-t border-goldsoft pt-4">
               <p className="text-[11px] uppercase tracking-[0.2em] text-charcoal/60">Total</p>
-              <p className="font-serif text-3xl text-wine">{formatPrice(total)}</p>
+              <div className="text-right">
+                <p className="font-serif text-3xl text-wine">{openPrice && total === 0 ? "On request" : formatPrice(total)}</p>
+                {openPrice && total > 0 ? <p className="mt-1 text-xs text-charcoal/60">Plus pieces priced on request.</p> : null}
+              </div>
             </div>
             {error ? <p className="mt-4 text-sm text-burgundy">{error}</p> : null}
             <button type="submit" className="btn-shimmer mt-6 inline-flex w-full items-center justify-center gap-2 bg-burgundy px-6 py-4 text-[11px] uppercase tracking-[0.2em] text-ivory hover:bg-wine">

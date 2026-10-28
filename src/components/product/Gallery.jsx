@@ -7,9 +7,11 @@ export default function Gallery({ images, name }) {
   const startX = useRef(0);
   const current = images[index] || images[0];
 
+  const imageKey = images.join("|");
+
   useEffect(() => {
     setIndex(0);
-  }, [name]);
+  }, [name, imageKey]);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -29,7 +31,7 @@ export default function Gallery({ images, name }) {
   return (
     <div>
       <div
-        className="relative aspect-[3/4] overflow-hidden bg-goldsoft/30"
+        className="relative overflow-hidden bg-goldsoft/30"
         onTouchStart={(event) => {
           startX.current = event.touches[0].clientX;
         }}
@@ -39,8 +41,8 @@ export default function Gallery({ images, name }) {
           if (delta > 40) shift(-1);
         }}
       >
-        <button type="button" className="h-full w-full" onClick={() => setOpen(true)} aria-label={`Enlarge ${name}`}>
-          <img src={current} alt={name} className="h-full w-full object-cover" />
+        <button type="button" className="block w-full" onClick={() => setOpen(true)} aria-label={`Enlarge ${name}`}>
+          <img src={current} alt={name} className="mx-auto max-h-[78vh] w-full object-contain" />
         </button>
         {images.length > 1 ? (
           <>
@@ -63,7 +65,7 @@ export default function Gallery({ images, name }) {
               onClick={() => setIndex(imageIndex)}
               className={`h-20 w-16 overflow-hidden border ${imageIndex === index ? "border-burgundy" : "border-transparent"}`}
             >
-              <img src={image} alt="" className="h-full w-full object-cover" />
+              <img src={image} alt="" className="h-full w-full object-contain bg-goldsoft/20" />
             </button>
           ))}
         </div>

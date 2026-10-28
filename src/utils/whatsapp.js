@@ -26,17 +26,21 @@ export function enquiryText({ product, size, color, name, phone, message }) {
 export function orderText({ name, address, description, lines, total }) {
   const origin = typeof window !== "undefined" ? window.location.origin : siteConfig.url;
   const pieces = lines.map((line, index) => {
-    const lineTotal = line.product.price * line.qty;
+    const unit = line.product.price;
     const detail = [line.size && `Size: ${line.size}`, line.color && `Color: ${line.color}`].filter(Boolean).join(" | ");
+    const money = unit == null ? "Price on request" : `${formatPrice(unit)} · ${formatPrice(unit * line.qty)}`;
     return [
       `${index + 1}. *${line.product.name}* (${line.product.id})`,
       detail || null,
-      `Qty: ${line.qty} · ${formatPrice(line.product.price)} · ${formatPrice(lineTotal)}`,
+      `Qty: ${line.qty} · ${money}`,
       `${origin}/product/${line.product.slug}`,
     ]
       .filter(Boolean)
       .join("\n");
   });
+  const pricedLines = lines.filter((line) => line.product.price != null);
+  const openPrice = pricedLines.length !== lines.length;
+  const totalLabel = pricedLines.length === 0 ? "price on request" : openPrice ? `${formatPrice(total)} + price on request` : formatPrice(total);
 
   return [
     `*${siteConfig.name}*`,
@@ -53,7 +57,7 @@ export function orderText({ name, address, description, lines, total }) {
     "*Pieces*",
     pieces.join("\n\n"),
     "",
-    `*Total: ${formatPrice(total)}*`,
+    `*Total: ${totalLabel}*`,
   ].join("\n");
 }
 

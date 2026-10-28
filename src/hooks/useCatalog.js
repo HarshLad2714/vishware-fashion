@@ -44,13 +44,13 @@ export function useCatalog(forcedCategory) {
     if (size) next = next.filter((product) => product.sizes.includes(size));
     if (color) next = next.filter((product) => product.colors.some((swatch) => swatch.name === color));
     if (occasion) next = next.filter((product) => product.tags.includes(occasion));
-    if (price === "under-3000") next = next.filter((product) => product.price < 3000);
-    if (price === "3000-8000") next = next.filter((product) => product.price >= 3000 && product.price <= 8000);
-    if (price === "above-8000") next = next.filter((product) => product.price > 8000);
+    if (price === "under-3000") next = next.filter((product) => product.price != null && product.price < 3000);
+    if (price === "3000-8000") next = next.filter((product) => product.price != null && product.price >= 3000 && product.price <= 8000);
+    if (price === "above-8000") next = next.filter((product) => product.price != null && product.price > 8000);
 
     next = [...next];
-    if (sort === "price-asc") next.sort((a, b) => a.price - b.price);
-    else if (sort === "price-desc") next.sort((a, b) => b.price - a.price);
+    if (sort === "price-asc") next.sort((a, b) => (a.price ?? Infinity) - (b.price ?? Infinity));
+    else if (sort === "price-desc") next.sort((a, b) => (b.price ?? -1) - (a.price ?? -1));
     else if (sort === "name") next.sort((a, b) => a.name.localeCompare(b.name));
     else next.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
     return next;

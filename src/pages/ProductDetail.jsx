@@ -33,6 +33,8 @@ export default function ProductDetail() {
 
   if (!product) return <NotFound />;
 
+  const activeColor = product.colors.find((swatch) => swatch.name === color) || product.colors[0];
+  const galleryImages = activeColor?.images?.length ? activeColor.images : product.images;
   const category = getCategory(product.category);
   const off = discountPercent(product.price, product.mrp);
   const saved = wished(product.id);
@@ -58,7 +60,7 @@ export default function ProductDetail() {
     offers: {
       "@type": "Offer",
       priceCurrency: "INR",
-      price: product.price,
+      ...(product.price != null ? { price: product.price } : {}),
       availability: "https://schema.org/InStock",
       url: `${siteConfig.url}/product/${product.slug}`,
     },
@@ -106,7 +108,7 @@ export default function ProductDetail() {
       </nav>
 
       <div className="grid items-start gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-        <Gallery images={product.images} name={product.name} />
+        <Gallery images={galleryImages} name={product.name} />
         <div className="lg:sticky lg:top-28">
           <p className="text-[11px] uppercase tracking-[0.28em] text-burgundy">{category?.name || categoryName(product.category)}</p>
           <h1 className="mt-3 font-serif text-5xl leading-[0.95] text-wine md:text-6xl">{product.name}</h1>

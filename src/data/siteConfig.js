@@ -11,14 +11,14 @@ export const siteConfig = {
   name: "Vishwear",
   tagline: "Silhouette tera signature hamara",
   description:
-    "Vishwear is a luxury fashion atelier. Explore sarees, lehengas, gowns and occasion wear, then enquire on WhatsApp.",
+    "Vishwear oversized printed tees in black and white. Choose a size, then order on WhatsApp.",
   url: import.meta.env.VITE_SITE_URL || "https://vishwear-fashion.netlify.app",
-  // Digits only. Replace the placeholder before sharing the visiting card.
-  whatsapp: "91XXXXXXXXXX",
-  phoneDisplay: "+91 XXXXX XXXXX",
-  email: "hello@vishwear.in",
-  instagram: "https://instagram.com/vishwear",
-  instagramHandle: "@vishwear",
+  // Digits only, country code sathe, + vagar.
+  whatsapp: "918160688508",
+  phoneDisplay: "+91 81606 88508",
+  email: "vishwear24@gmail.com",
+  instagram: "https://www.instagram.com/vishwear_24",
+  instagramHandle: "@vishwear_24",
   addressLines: ["Vishwear Atelier", "Surat, Gujarat"],
   address: "Vishwear Atelier, Surat, Gujarat",
   mapQuery: "Surat, Gujarat",

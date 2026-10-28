@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SlidersHorizontal } from "lucide-react";
 import { categories } from "../../data/categories";
+import { products } from "../../data/products";
 import { useCatalog } from "../../hooks/useCatalog";
 import Filters from "./Filters";
 import ProductGrid from "./ProductGrid";
@@ -48,7 +49,7 @@ export default function Catalog({ forcedCategory, heading, intro }) {
         >
           All
         </Link>
-        {categories.map((category) => (
+        {categories.filter((category) => products.some((product) => product.category === category.slug)).map((category) => (
           <Link
             key={category.id}
             to={`/category/${category.slug}`}

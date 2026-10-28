@@ -12,7 +12,7 @@ export default function NewArrivals() {
   return (
     <section id="new" className="mx-auto max-w-[1440px] px-5 py-8 md:px-12 md:py-12">
       <div className="flex items-end justify-between gap-6">
-        <SectionTitle eyebrow="Just in" title="New arrivals" text="Eight pieces from the latest cut." />
+        <SectionTitle eyebrow="Just in" title="The tees" text="Black and white oversized tees. ₹599 each, sizes S to XXL." />
         <Link to="/collection?sort=newest" className="hidden text-[11px] uppercase tracking-[0.22em] text-burgundy md:inline">
           View all
         </Link>

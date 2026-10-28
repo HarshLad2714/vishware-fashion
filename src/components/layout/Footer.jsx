@@ -22,9 +22,6 @@ export default function Footer() {
           <p className="text-[11px] uppercase tracking-[0.28em] text-gold">Explore</p>
           <ul className="mt-4 space-y-2 text-sm">
             <li><Link to="/collection" className="hover:text-gold">Collection</Link></li>
-            <li><Link to="/category/sarees" className="hover:text-gold">Sarees</Link></li>
-            <li><Link to="/category/lehengas" className="hover:text-gold">Lehengas</Link></li>
-            <li><Link to="/category/bridal" className="hover:text-gold">Bridal</Link></li>
             <li><Link to="/bag" className="hover:text-gold">Bag</Link></li>
             <li><Link to="/wishlist" className="hover:text-gold">Wishlist</Link></li>
           </ul>

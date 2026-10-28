@@ -1,4 +1,5 @@
 export function formatPrice(value) {
+  if (value == null || value === "") return "On request";
   return new Intl.NumberFormat("en-IN", {
     style: "currency",
     currency: "INR",

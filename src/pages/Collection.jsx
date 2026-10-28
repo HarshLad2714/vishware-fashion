@@ -6,12 +6,12 @@ export default function Collection() {
     <div className="mx-auto max-w-[1440px] px-5 pb-20 pt-28 md:px-12 md:pt-32">
       <Seo
         title="Collection"
-        description="Browse the Vishwear collection — sarees, lehengas, gowns, sherwanis and occasion wear. Filter by size, colour and price, then enquire on WhatsApp."
+        description="Black and white oversized printed tees from Vishwear. Choose a size and send the order on WhatsApp."
         path="/collection"
       />
       <Catalog
         heading="The collection"
-        intro="Every piece in the house, in one edit. Filter by size, colour, occasion or price — then send an enquiry. We reply with availability."
+        intro="Oversized tees in black and white, ₹599 each. Pick a size, then send the order on WhatsApp."
       />
     </div>
   );
