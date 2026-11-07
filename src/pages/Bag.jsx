@@ -152,6 +152,7 @@ export default function Bag() {
               <p className="text-[11px] uppercase tracking-[0.2em] text-charcoal/60">Total</p>
               <div className="text-right">
                 <p className="font-serif text-3xl text-wine">{openPrice && total === 0 ? "On request" : formatPrice(total)}</p>
+                <p className="mt-1 text-xs text-charcoal/60">Shipping charges and delivery charges are extra.</p>
                 {openPrice && total > 0 ? <p className="mt-1 text-xs text-charcoal/60">Plus pieces priced on request.</p> : null}
               </div>
             </div>

@@ -9,6 +9,7 @@ import { enquiryText, whatsappHref } from "../utils/whatsapp";
 import { useUi } from "../context/UiContext";
 import Seo from "../components/common/Seo";
 import Gallery from "../components/product/Gallery";
+import ProductAssurance from "../components/product/ProductAssurance";
 import ProductCard from "../components/product/ProductCard";
 import { WhatsAppIcon } from "../components/common/Icons";
 import NotFound from "./NotFound";
@@ -226,6 +227,7 @@ export default function ProductDetail() {
               <Share2 size={15} /> {copied ? "Link copied" : "Share"}
             </button>
           </div>
+          <ProductAssurance />
         </div>
       </div>
 
