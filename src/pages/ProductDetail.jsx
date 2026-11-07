@@ -10,6 +10,7 @@ import { useUi } from "../context/UiContext";
 import Seo from "../components/common/Seo";
 import Gallery from "../components/product/Gallery";
 import ProductAssurance from "../components/product/ProductAssurance";
+import ProductReviews from "../components/product/ProductReviews";
 import ProductCard from "../components/product/ProductCard";
 import { WhatsAppIcon } from "../components/common/Icons";
 import NotFound from "./NotFound";
@@ -230,6 +231,8 @@ export default function ProductDetail() {
           <ProductAssurance />
         </div>
       </div>
+
+      <ProductReviews productId={product.id} />
 
       {related.length > 0 ? (
         <section className="mt-20">

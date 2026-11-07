@@ -60,13 +60,26 @@ export default function Bag() {
       return;
     }
     setError("");
-    const text = orderText({
-      name: form.name.trim(),
-      address: form.address.trim(),
-      description: form.description.trim(),
-      lines,
-      total,
-    });
+    const name = form.name.trim();
+    const address = form.address.trim();
+    const description = form.description.trim();
+    const text = orderText({ name, address, description, lines, total });
+    fetch("/api/orders", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      keepalive: true,
+      body: JSON.stringify({
+        name,
+        address,
+        description,
+        lines: lines.map((line) => ({
+          productId: line.product.id,
+          qty: line.qty,
+          size: line.size || "",
+          color: line.color || "",
+        })),
+      }),
+    }).catch(() => {});
     const wa = whatsappHref(text);
     if (wa) {
       window.open(wa, "_blank", "noopener,noreferrer");
@@ -152,7 +165,7 @@ export default function Bag() {
               <p className="text-[11px] uppercase tracking-[0.2em] text-charcoal/60">Total</p>
               <div className="text-right">
                 <p className="font-serif text-3xl text-wine">{openPrice && total === 0 ? "On request" : formatPrice(total)}</p>
-                <p className="mt-1 text-xs text-charcoal/60">Shipping charges and delivery charges are extra.</p>
+                <p className="mt-1 text-xs text-charcoal/60">{siteConfig.shippingNote}</p>
                 {openPrice && total > 0 ? <p className="mt-1 text-xs text-charcoal/60">Plus pieces priced on request.</p> : null}
               </div>
             </div>

@@ -16,6 +16,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Wishlist from "./pages/Wishlist";
 import Bag from "./pages/Bag";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 function SmoothScroll() {
@@ -95,6 +96,7 @@ export default function App() {
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/wishlist" element={<Wishlist />} />
                   <Route path="/bag" element={<Bag />} />
+                  <Route path="/admin" element={<Admin />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </motion.div>

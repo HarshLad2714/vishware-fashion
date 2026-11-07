@@ -23,9 +23,16 @@ export const siteConfig = {
   address: "Vishwear Atelier, Surat, Gujarat",
   mapQuery: "Surat, Gujarat",
   hours: "Monday to Saturday, 11:00 – 20:00",
+  shippingPoints: [
+    "Packed within 2–3 Days.",
+    "Free delivery Pan-India.",
+    "Dispatches 2–3 Days.",
+    "Worldwide Shipping",
+  ],
+  shippingNote: "Packed within 2–3 days. Free delivery Pan-India. Dispatches in 2–3 days. Worldwide shipping.",
   // Bag order par user ne dekhay, ane WhatsApp message ni andar pan jaye. Edit kari shakay.
   companyOrderMessage:
-    "Thank you for choosing Vishwear. This order has reached our atelier. We will confirm every piece, the size and delivery on this WhatsApp chat before it is prepared. Shipping charges and delivery charges are extra. Silhouette tera signature hamara.",
+    "Thank you for choosing Vishwear. This order has reached our atelier. We will confirm every piece, the size and delivery on this WhatsApp chat before it is prepared. Packed within 2–3 days. Free delivery Pan-India. Dispatches in 2–3 days. Worldwide shipping. Silhouette tera signature hamara.",
 };
 
 export function hasContactNumber() {

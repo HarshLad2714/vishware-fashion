@@ -58,7 +58,7 @@ export function orderText({ name, address, description, lines, total }) {
     pieces.join("\n\n"),
     "",
     `*Total: ${totalLabel}*`,
-    "Shipping charges and delivery charges are extra.",
+    siteConfig.shippingNote,
   ].join("\n");
 }
 
